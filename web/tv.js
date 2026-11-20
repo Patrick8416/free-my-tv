@@ -23,7 +23,9 @@ var TV = (function () {
   var lowMemory = navigator.deviceMemory && navigator.deviceMemory <= 1;
   // webOS 1 to 3 (2014-2017, Chromium 38) have no deviceMemory, and their sets have 1 to 1.5 GB: lite too.
   var chrome = /Chrome\/(\d+)/.exec(navigator.userAgent);
-  var oldWebos = webos && !navigator.deviceMemory && chrome && parseInt(chrome[1], 10) < 53;
+  // This fork: webOS 4 and 4.5 (2018-2019, Chromium 53, no deviceMemory) too; a 49SM8600 (webOS 4.5) felt slow with
+  // the picks on.
+  var oldWebos = webos && !navigator.deviceMemory && chrome && parseInt(chrome[1], 10) < 54;
   if (tizen2 || oldWebos || ((webos || samsung) && lowMemory)) {
     // webOS 3 on a 4K set (UH6150) re-rasterized ~300 ms of tiles at each move; with each tile and pick on its own
     // compositor layer that fell to ~8 ms, and the focus can animate again (`layered` in home.css).
